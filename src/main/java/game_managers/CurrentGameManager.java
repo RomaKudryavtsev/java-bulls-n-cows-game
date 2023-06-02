@@ -31,14 +31,14 @@ public class CurrentGameManager {
             ++stepsCount;
             int playerInput = getPlayerInput();
             PlayerTurnResult playerTurnResult = inputAnalyzer.getBullNCowsCount(playerInput);
+            currentGameResults.add(playerTurnResult);
+            currentGameResults.forEach(System.out::println);
             if(playerTurnResult.getBulls() == SECRET_NUMBER_DIGITS) {
                 isRunning = false;
                 gameLogFilename = GameLogger.saveToLog(currentGameResults, stepsCount);
                 System.out.println("\t\t%%%%CONGRATULATIONS!%%%%");
                 System.out.println("\t\t\tSECRET NUMBER IS: " + secretNumber);
             }
-            currentGameResults.add(playerTurnResult);
-            currentGameResults.forEach(System.out::println);
         }
     }
 
