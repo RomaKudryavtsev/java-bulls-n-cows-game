@@ -51,12 +51,15 @@ public class GameCycleManager {
                 String newLogsDir = PlayerInputReader.readPlayerLogDirName();
                 saveDirLogsName(newLogsDir);
                 LogsCopier.copyPrevLogsToDir(dirLogsName, newLogsDir);
+                break;
             case 4:
                 getRules();
                 break;
             case 5:
                 isRunning = false;
                 break;
+            default:
+                System.out.println("Unknown command");
         }
     }
 
