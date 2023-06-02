@@ -1,0 +1,11 @@
+Bulls and Cows is an engaging code-breaking game that has a rich history dating back several decades. Originating in the 1960s, it gained popularity as a pencil-and-paper game and has since been enjoyed in various forms.
+
+The game revolves around a secret code composed of a sequence of numbers or letters. One player takes on the role of the code maker, while the other player becomes the code guesser.
+
+The objective for the code guesser is to decipher the secret code within a limited number of attempts. After each guess, the code maker provides feedback in the form of 'bulls' and 'cows.'
+
+'Bulls' represent correct digits or letters that are in the right position, while 'cows' signify correct digits or letters that are in the wrong position. Using this feedback, the code guesser applies logical deduction and reasoning to refine their subsequent guesses.
+
+The game continues until the code guesser successfully unveils the entire secret code, achieving all 'bulls,' or until the maximum number of attempts is reached.
+
+Bulls and Cows offers a captivating challenge that tests one's strategic thinking, deductive skills, and ability to interpret feedback. Its simplicity and versatility have made it a timeless favorite among players of all ages.
