@@ -1,6 +1,7 @@
 package game_managers;
 
 import logs_utils.GameLogger;
+import logs_utils.LogsCopier;
 import player_input_utils.PlayerInputReader;
 
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ public class GameCycleManager {
 
     public GameCycleManager() {
         //TODO - dirLogsName has to be stored in separate file
-        if(this.nonDefaultDirName) {
+        if (this.nonDefaultDirName) {
             gameManager = new CurrentGameManager(dirLogsName);
         } else {
             gameManager = new CurrentGameManager();
@@ -24,7 +25,7 @@ public class GameCycleManager {
 
     public void runCycle() {
         isRunning = true;
-        while(isRunning) {
+        while (isRunning) {
             printMenu();
             int playerChoice = PlayerInputReader.readPlayerInput();
             executePlayerChoice(playerChoice);
@@ -47,7 +48,7 @@ public class GameCycleManager {
                 System.out.println("\n\t\t>>>>TYPE NEW DIRECTORY NAMES FOR LOGS<<<<");
                 dirLogsName = PlayerInputReader.readPlayerLogDirName();
                 saveDirLogsName(dirLogsName);
-                GameLogger.copyPrevLogsToDir(dirLogsName);
+                LogsCopier.copyPrevLogsToDir(dirLogsName);
                 nonDefaultDirName = true;
             case 4:
                 getRules();
@@ -59,7 +60,7 @@ public class GameCycleManager {
     }
 
     private void saveDirLogsName(String dirLogsName) {
-        //TODO - to implement
+        this.dirLogsName = dirLogsName;
     }
 
     private void printMenu() {
@@ -74,7 +75,7 @@ public class GameCycleManager {
     }
 
     private void getRules() {
-        try(BufferedReader in = new BufferedReader(new FileReader("rules.txt"))) {
+        try (BufferedReader in = new BufferedReader(new FileReader("rules.txt"))) {
             while (in.ready()) {
                 String line = in.readLine();
                 System.out.printf("%s\n", line);

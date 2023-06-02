@@ -10,9 +10,10 @@ import java.util.List;
 public class GameLogger {
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_hh_mm_");
 
-    public static String saveToLog(List<PlayerTurnResult> currentGameResults, int stepsCount) {
+    public static String saveToLog(List<PlayerTurnResult> currentGameResults, int stepsCount, String dirName) {
         String filename = String.format("%s%d.data", LocalDateTime.now().format(DATE_TIME_FORMAT), stepsCount);
-        try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {
+        File logFile = dirName == null ? createLogFileInDefaultDir(filename) : createLogFileInNonDefaultDir(filename, dirName);
+        try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(logFile)))) {
             out.writeObject(currentGameResults);
             return filename;
         } catch (IOException e) {
@@ -20,9 +21,26 @@ public class GameLogger {
         }
     }
 
-    public static String saveToLog(List<PlayerTurnResult> currentGameResults, int stepsCount, String dirName) {
-        //TODO - to implement
-        return null;
+    private static File createLogFileInDefaultDir(String filename) {
+        File file = new File(filename);
+        try {
+            file.createNewFile();
+            return file;
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to create logfile");
+        }
+    }
+
+    private static File createLogFileInNonDefaultDir(String filename, String dirName) {
+        File dir = new File(dirName);
+        dir.mkdir();
+        File file = new File(dir, filename);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to create logfile");
+        }
+        return file;
     }
 
     @SuppressWarnings("unchecked")

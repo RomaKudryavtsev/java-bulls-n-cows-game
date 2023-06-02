@@ -25,7 +25,6 @@ public class LogsCopier {
                 .collect(Collectors.toSet());
     }
 
-
     private static String getDefaultDir() {
         File currentDirFile = new File(".");
         String helper = currentDirFile.getAbsolutePath();

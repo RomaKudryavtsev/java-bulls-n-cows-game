@@ -34,16 +34,16 @@ public class CurrentGameManager {
         isRunning = true;
         List<PlayerTurnResult> currentGameResults = new ArrayList<>();
         int stepsCount = 0;
-        while(isRunning) {
+        while (isRunning) {
             ++stepsCount;
             int playerInput = PlayerInputReader.readPlayerInput();
-            if(playerInput == -1) {
+            if (playerInput == -1) {
                 isRunning = false;
             }
             PlayerTurnResult playerTurnResult = inputAnalyzer.getBullNCowsCount(playerInput);
             currentGameResults.add(playerTurnResult);
             currentGameResults.forEach(System.out::println);
-            if(playerTurnResult.getBulls() == SECRET_NUMBER_DIGITS) {
+            if (playerTurnResult.getBulls() == SECRET_NUMBER_DIGITS) {
                 endGame(stepsCount, currentGameResults);
             }
         }
@@ -55,11 +55,7 @@ public class CurrentGameManager {
 
     private void endGame(int stepsCount, List<PlayerTurnResult> currentGameResults) {
         isRunning = false;
-        if (gameLogDirName == null) {
-            gameLogFileName = GameLogger.saveToLog(currentGameResults, stepsCount);
-        } else {
-            gameLogFileName = GameLogger.saveToLog(currentGameResults, stepsCount, gameLogDirName);
-        }
+        gameLogFileName = GameLogger.saveToLog(currentGameResults, stepsCount, gameLogDirName);
         printFinalFlag();
     }
 
