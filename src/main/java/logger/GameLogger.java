@@ -20,6 +20,7 @@ public class GameLogger {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void readFromLog(String filename) {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             System.out.println("LOG: " + filename);
