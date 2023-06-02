@@ -29,6 +29,8 @@ public class GameLogger {
             log.forEach(System.out::println);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Unable to read from log");
+        } catch (NullPointerException e) {
+            System.out.println("No logs were found");
         }
     }
 
@@ -44,7 +46,7 @@ public class GameLogger {
 
     private static File createLogFileInNonDefaultDir(String filename, String dirName) {
         File dir = new File(dirName);
-        dir.mkdir();
+        dir.mkdirs();
         File file = new File(dir, filename);
         try {
             file.createNewFile();

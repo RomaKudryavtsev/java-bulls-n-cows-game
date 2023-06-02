@@ -3,6 +3,8 @@ package logs_utils;
 import model.PlayerTurnResult;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -14,8 +16,8 @@ public class LogsCopier {
     public static void copyPrevLogsToDir(String srcDirName, String dstDirName) {
         Set<File> logsInSrcDir = getLogsInDir(srcDirName);
         File dstDir = new File(dstDirName);
-        if (!dstDir.mkdir()) {
-            throw new RuntimeException("Unable to create destination dir");
+        if (!dstDir.mkdirs()) {
+            System.out.println("Unable to create destination dir");
         }
         logsInSrcDir.forEach(oldLog -> {
             File newLog = new File(dstDirName, oldLog.getName());
@@ -44,12 +46,7 @@ public class LogsCopier {
     }
 
     private static String getDefaultDir() {
-        File currentDirFile = new File(".");
-        String helper = currentDirFile.getAbsolutePath();
-        try {
-            return helper.substring(0, helper.length() - currentDirFile.getCanonicalPath().length());
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to define current directory");
-        }
+        Path currentPath = Paths.get(System.getProperty("user.dir"));
+        return currentPath.getRoot().toString();
     }
 }

@@ -8,15 +8,15 @@ import java.io.*;
 
 public class GameCycleManager {
     private boolean isRunning;
-    private String dirLogsName;
+    private String currentDirForLogs;
     private final CurrentGameManager gameManager;
 
     public GameCycleManager() {
-        File dirNameFile = new File("dirname.txt");
+        File dirNameFile = new File("dir_logs_name.txt");
         if (dirNameFile.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(dirNameFile))) {
-                dirLogsName = reader.readLine();
-                gameManager = new CurrentGameManager(dirLogsName);
+                currentDirForLogs = reader.readLine();
+                gameManager = new CurrentGameManager(currentDirForLogs);
             } catch (IOException e) {
                 throw new RuntimeException("Unable to read dir name");
             }
@@ -48,7 +48,7 @@ public class GameCycleManager {
                 System.out.println("\n\t\t>>>>TYPE NEW DIRECTORY NAMES FOR LOGS<<<<");
                 String newLogsDir = PlayerInputReader.readPlayerLogDirName();
                 saveDirLogsName(newLogsDir);
-                LogsCopier.copyPrevLogsToDir(dirLogsName, newLogsDir);
+                LogsCopier.copyPrevLogsToDir(currentDirForLogs, newLogsDir);
                 break;
             case 4:
                 getRules();
@@ -68,14 +68,13 @@ public class GameCycleManager {
     }
 
     private void saveDirLogsName(String dirLogsName) {
-        this.dirLogsName = dirLogsName;
-        File dirNameFile = new File("dirname.txt");
+        File fileWithLogsDirName = new File("dir_logs_name.txt");
         try {
-            dirNameFile.createNewFile();
+            fileWithLogsDirName.createNewFile();
         } catch (IOException e) {
             throw new RuntimeException("Unable to create file with dir name");
         }
-        try (FileWriter writer = new FileWriter(dirNameFile)) {
+        try (FileWriter writer = new FileWriter(fileWithLogsDirName)) {
             writer.write(dirLogsName);
         } catch (IOException e) {
             throw new RuntimeException("Unable to save dir name");
