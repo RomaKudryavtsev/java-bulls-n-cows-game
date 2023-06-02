@@ -37,9 +37,7 @@ public class GameCycleManager {
     private void executePlayerChoice(int playerChoice) {
         switch (playerChoice) {
             case 1:
-                System.out.println("\n\t\t>>>>GAME STARTS HERE<<<<");
-                System.out.println("\n\t\tMake your first guess!");
-                System.out.println("\n\t\tTo exit game type -1");
+                printGreetings();
                 gameManager.runGame();
                 break;
             case 2:
@@ -61,6 +59,12 @@ public class GameCycleManager {
             default:
                 System.out.println("Unknown command");
         }
+    }
+
+    private void printGreetings() {
+        System.out.println("\n\t\t>>>>GAME STARTS HERE<<<<");
+        System.out.println("\n\t\tMake your first guess!");
+        System.out.println("\n\t\tTo exit game type -1");
     }
 
     private void saveDirLogsName(String dirLogsName) {
