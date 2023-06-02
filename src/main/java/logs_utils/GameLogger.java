@@ -1,4 +1,4 @@
-package logger;
+package logs_utils;
 
 import model.PlayerTurnResult;
 
@@ -18,6 +18,11 @@ public class GameLogger {
         } catch (IOException e) {
             throw new RuntimeException("Unable to write log");
         }
+    }
+
+    public static String saveToLog(List<PlayerTurnResult> currentGameResults, int stepsCount, String dirName) {
+        //TODO - to implement
+        return null;
     }
 
     @SuppressWarnings("unchecked")

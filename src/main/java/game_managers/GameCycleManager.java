@@ -1,22 +1,32 @@
 package game_managers;
 
-import logger.GameLogger;
+import logs_utils.GameLogger;
+import player_input_utils.PlayerInputReader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class GameCycleManager {
     private boolean isRunning;
-    private final CurrentGameManager gameManager = new CurrentGameManager();
+    private boolean nonDefaultDirName;
+    private String dirLogsName;
+    private final CurrentGameManager gameManager;
+
+    public GameCycleManager() {
+        //TODO - dirLogsName has to be stored in separate file
+        if(this.nonDefaultDirName) {
+            gameManager = new CurrentGameManager(dirLogsName);
+        } else {
+            gameManager = new CurrentGameManager();
+        }
+    }
 
     public void runCycle() {
         isRunning = true;
         while(isRunning) {
             printMenu();
-            Scanner scanner = new Scanner(System.in);
-            int playerChoice = scanner.nextInt();
+            int playerChoice = PlayerInputReader.readPlayerInput();
             executePlayerChoice(playerChoice);
         }
     }
@@ -26,13 +36,19 @@ public class GameCycleManager {
             case 1:
                 System.out.println("\n\t\t>>>>GAME STARTS HERE<<<<");
                 System.out.println("\n\t\tMake your first guess!");
+                System.out.println("\n\t\tTo exit game type -1");
                 gameManager.runGame();
-                printFinalFlag();
                 break;
             case 2:
                 System.out.println("\n\t\t>>>>LAST GAME LOG<<<<");
-                GameLogger.readFromLog(gameManager.getGameLogFilename());
+                GameLogger.readFromLog(gameManager.getGameLogFileName());
                 break;
+            case 3:
+                System.out.println("\n\t\t>>>>TYPE NEW DIRECTORY NAMES FOR LOGS<<<<");
+                dirLogsName = PlayerInputReader.readPlayerLogDirName();
+                saveDirLogsName(dirLogsName);
+                GameLogger.copyPrevLogsToDir(dirLogsName);
+                nonDefaultDirName = true;
             case 4:
                 getRules();
                 break;
@@ -40,6 +56,10 @@ public class GameCycleManager {
                 isRunning = false;
                 break;
         }
+    }
+
+    private void saveDirLogsName(String dirLogsName) {
+        //TODO - to implement
     }
 
     private void printMenu() {
@@ -74,14 +94,5 @@ public class GameCycleManager {
                 "          |\\_\\   +   +\n" +
                 "          |  \\ \\       \n" +
                 "       (__/  (__/");
-    }
-
-    private void printFinalFlag() {
-        System.out.println("_\n" +
-                "\\'-,,.\n" +
-                " \\    \\\n" +
-                "  \\-..,\\\n" +
-                "   \\\n" +
-                "    \\\n");
     }
 }

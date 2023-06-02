@@ -1,4 +1,4 @@
-package turn_analyzer;
+package player_input_utils;
 
 import model.PlayerTurnResult;
 
