@@ -14,13 +14,9 @@ public class LogsCopier {
     @SuppressWarnings("unchecked")
     public static void copyPrevLogsToDir(String srcDirName, String dstDirName) {
         File srcLogDir = new File(srcDirName);
-        Set<File> logsInSrcDir = getLogsInDir(srcLogDir);
         File dstLogDir = new File(dstDirName);
-        if (!dstLogDir.exists()) {
-            if(!dstLogDir.mkdirs()) {
-                System.out.println("Unable to create new log dir");
-            }
-        }
+        Set<File> logsInSrcDir = getLogsInSrcDir(srcLogDir);
+        createDstLogDir(dstLogDir);
         logsInSrcDir.forEach(srcLog -> {
             File newLog = new File(dstLogDir, srcLog.getName());
             try {
@@ -30,21 +26,33 @@ public class LogsCopier {
             } catch (IOException e) {
                 throw new RuntimeException("Unable to create new log");
             }
-            try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(srcLog)));
-                 ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(newLog)))) {
-                List<PlayerTurnResult> logContent = (List<PlayerTurnResult>) in.readObject();
-                out.writeObject(logContent);
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException("Unable to copy log content");
-            }
+            copyContent(srcLog, newLog);
             if(!srcLog.delete()) {
-                throw new RuntimeException("Unable to delete previous log dir");
+                System.out.println("Unable to delete previous log dir");
             }
         });
         srcLogDir.deleteOnExit();
     }
 
-    private static Set<File> getLogsInDir(File srcLogDir) {
+    private static void createDstLogDir(File dstLogDir) {
+        if (!dstLogDir.exists()) {
+            if(!dstLogDir.mkdirs()) {
+                System.out.println("Unable to create new log dir");
+            }
+        }
+    }
+
+    private static void copyContent(File srcLog, File newLog) {
+        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(srcLog)));
+             ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(newLog)))) {
+            List<PlayerTurnResult> logContent = (List<PlayerTurnResult>) in.readObject();
+            out.writeObject(logContent);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("Unable to copy log content");
+        }
+    }
+
+    private static Set<File> getLogsInSrcDir(File srcLogDir) {
         File[] fileArr = srcLogDir.listFiles();
         if (fileArr != null) {
             return Arrays.stream(fileArr)
