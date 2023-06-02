@@ -18,32 +18,32 @@ public class GameCycleManager {
         isRunning = true;
         while (isRunning) {
             printMenu();
-            int playerChoice = PlayerInputReader.readPlayerInput();
+            String playerChoice = PlayerInputReader.readPlayerInput();
             executePlayerChoice(playerChoice);
         }
     }
 
-    private void executePlayerChoice(int playerChoice) {
+    private void executePlayerChoice(String playerChoice) {
         switch (playerChoice) {
-            case 1:
+            case "1":
                 printGreetings();
                 gameManager.runGame();
                 break;
-            case 2:
+            case "2":
                 System.out.println("\n\t\t>>>>LAST GAME LOG<<<<");
                 GameLogger.readFromLog();
                 break;
-            case 3:
+            case "3":
                 System.out.println("\n\t\t>>>>TYPE NEW DIRECTORY NAMES FOR LOGS<<<<");
                 String newLogsDir = PlayerInputReader.readPlayerLogDirName();
                 GameLogger.writeLogsDirectoryName(newLogsDir);
                 LogsCopier.copyPrevLogsToDir(gameManager.getGameLogDirName(), newLogsDir);
                 gameManager.setGameLogDirName(newLogsDir);
                 break;
-            case 4:
+            case "4":
                 getRules();
                 break;
-            case 5:
+            case "5":
                 isRunning = false;
                 break;
             default:
@@ -54,7 +54,7 @@ public class GameCycleManager {
     private void printGreetings() {
         System.out.println("\n\t\t>>>>GAME STARTS HERE<<<<");
         System.out.println("\n\t\tMake your first guess!");
-        System.out.println("\n\t\tTo exit game type -1");
+        System.out.println("\n\t\tTo exit game type \"exit\"");
     }
 
     private void printMenu() {

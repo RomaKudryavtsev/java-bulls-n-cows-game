@@ -30,8 +30,8 @@ public class CurrentGameManager {
         int stepsCount = 0;
         while (isRunning) {
             ++stepsCount;
-            int playerInput = PlayerInputReader.readPlayerInput();
-            if (playerInput == -1) {
+            String playerInput = PlayerInputReader.readPlayerInput();
+            if (playerInput.equals("exit")) {
                 isRunning = false;
             }
             PlayerTurnResult playerTurnResult = inputAnalyzer.getBullNCowsCount(playerInput);

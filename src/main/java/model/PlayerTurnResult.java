@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class PlayerTurnResult implements Serializable {
     private final int nCows;
     private final int nBulls;
-    private final int playersInput;
+    private final String playersInput;
 
-    public PlayerTurnResult(int nCows, int nBulls, int playersInput) {
+    public PlayerTurnResult(int nCows, int nBulls, String playersInput) {
         this.nCows = nCows;
         this.nBulls = nBulls;
         this.playersInput = playersInput;
@@ -19,6 +19,6 @@ public class PlayerTurnResult implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%d (%d cows, %d bulls)", playersInput, nCows, nBulls);
+        return String.format("%s (%d cows, %d bulls)", playersInput, nCows, nBulls);
     }
 }

@@ -3,9 +3,9 @@ package player_input_utils;
 import java.util.Scanner;
 
 public class PlayerInputReader {
-    public static int readPlayerInput() {
+    public static String readPlayerInput() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return scanner.nextLine();
     }
 
     public static String readPlayerLogDirName() {

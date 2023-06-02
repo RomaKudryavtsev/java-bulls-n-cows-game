@@ -28,12 +28,13 @@ public class PlayerTurnAnalyzer {
                         }));
     }
 
-    public PlayerTurnResult getBullNCowsCount(int playersInput) {
+    public PlayerTurnResult getBullNCowsCount(String playersInput) {
         int[] nCows = {0};
         int[] nBulls = {0};
         int[] index = {0};
-        String.valueOf(playersInput).chars()
+        playersInput.chars()
                 .mapToObj(i -> (char) i)
+                .filter(Character::isDigit)
                 .map(Character::getNumericValue)
                 .forEach(i -> {
                     if (numbersAndIndexesMap.get(i) != null) {
