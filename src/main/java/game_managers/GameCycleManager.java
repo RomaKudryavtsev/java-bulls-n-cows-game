@@ -13,8 +13,8 @@ public class GameCycleManager {
 
     public GameCycleManager() {
         File dirNameFile = new File("dirname.txt");
-        if(dirNameFile.exists()) {
-            try(BufferedReader reader = new BufferedReader(new FileReader(dirNameFile))) {
+        if (dirNameFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(dirNameFile))) {
                 dirLogsName = reader.readLine();
                 gameManager = new CurrentGameManager(dirLogsName);
             } catch (IOException e) {
@@ -75,7 +75,7 @@ public class GameCycleManager {
         } catch (IOException e) {
             throw new RuntimeException("Unable to create file with dir name");
         }
-        try(FileWriter writer = new FileWriter(dirNameFile)) {
+        try (FileWriter writer = new FileWriter(dirNameFile)) {
             writer.write(dirLogsName);
         } catch (IOException e) {
             throw new RuntimeException("Unable to save dir name");

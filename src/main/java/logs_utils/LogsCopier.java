@@ -14,7 +14,7 @@ public class LogsCopier {
     public static void copyPrevLogsToDir(String srcDirName, String dstDirName) {
         Set<File> logsInSrcDir = getLogsInDir(srcDirName);
         File dstDir = new File(dstDirName);
-        if(!dstDir.mkdir()) {
+        if (!dstDir.mkdir()) {
             throw new RuntimeException("Unable to create destination dir");
         }
         logsInSrcDir.forEach(oldLog -> {
@@ -24,8 +24,8 @@ public class LogsCopier {
             } catch (IOException e) {
                 throw new RuntimeException("Unable to create new log");
             }
-            try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(oldLog)));
-                ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(newLog)))) {
+            try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(oldLog)));
+                 ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(newLog)))) {
                 List<PlayerTurnResult> logContent = (List<PlayerTurnResult>) in.readObject();
                 out.writeObject(logContent);
             } catch (IOException | ClassNotFoundException e) {
