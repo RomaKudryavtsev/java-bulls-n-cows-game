@@ -21,6 +21,17 @@ public class GameLogger {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public static void readFromLog(String filename) {
+        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
+            System.out.println("LOG: " + filename);
+            List<PlayerTurnResult> log = (List<PlayerTurnResult>) in.readObject();
+            log.forEach(System.out::println);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("Unable to read from log");
+        }
+    }
+
     private static File createLogFileInDefaultDir(String filename) {
         File file = new File(filename);
         try {
@@ -41,16 +52,5 @@ public class GameLogger {
             throw new RuntimeException("Unable to create logfile");
         }
         return file;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static void readFromLog(String filename) {
-        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
-            System.out.println("LOG: " + filename);
-            List<PlayerTurnResult> log = (List<PlayerTurnResult>) in.readObject();
-            log.forEach(System.out::println);
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException("Unable to read from log");
-        }
     }
 }

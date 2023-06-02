@@ -4,20 +4,22 @@ import logs_utils.GameLogger;
 import logs_utils.LogsCopier;
 import player_input_utils.PlayerInputReader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class GameCycleManager {
     private boolean isRunning;
-    private boolean nonDefaultDirName;
     private String dirLogsName;
     private final CurrentGameManager gameManager;
 
     public GameCycleManager() {
-        //TODO - dirLogsName has to be stored in separate file
-        if (this.nonDefaultDirName) {
-            gameManager = new CurrentGameManager(dirLogsName);
+        File dirNameFile = new File("dirname.txt");
+        if(dirNameFile.exists()) {
+            try(BufferedReader reader = new BufferedReader(new FileReader(dirNameFile))) {
+                dirLogsName = reader.readLine();
+                gameManager = new CurrentGameManager(dirLogsName);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to read dir name");
+            }
         } else {
             gameManager = new CurrentGameManager();
         }
@@ -46,10 +48,9 @@ public class GameCycleManager {
                 break;
             case 3:
                 System.out.println("\n\t\t>>>>TYPE NEW DIRECTORY NAMES FOR LOGS<<<<");
-                dirLogsName = PlayerInputReader.readPlayerLogDirName();
-                saveDirLogsName(dirLogsName);
-                LogsCopier.copyPrevLogsToDir(dirLogsName);
-                nonDefaultDirName = true;
+                String newLogsDir = PlayerInputReader.readPlayerLogDirName();
+                saveDirLogsName(newLogsDir);
+                LogsCopier.copyPrevLogsToDir(dirLogsName, newLogsDir);
             case 4:
                 getRules();
                 break;
@@ -61,6 +62,17 @@ public class GameCycleManager {
 
     private void saveDirLogsName(String dirLogsName) {
         this.dirLogsName = dirLogsName;
+        File dirNameFile = new File("dirname.txt");
+        try {
+            dirNameFile.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to create file with dir name");
+        }
+        try(FileWriter writer = new FileWriter(dirNameFile)) {
+            writer.write(dirLogsName);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to save dir name");
+        }
     }
 
     private void printMenu() {
