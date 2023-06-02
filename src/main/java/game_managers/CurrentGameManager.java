@@ -15,14 +15,11 @@ public class CurrentGameManager {
     private final int secretNumber;
     private final PlayerTurnAnalyzer inputAnalyzer;
     private boolean isRunning;
-    private String gameLogFileName;
     private String gameLogDirName;
 
 
     public CurrentGameManager(String gameLogDirName) {
-        //this.secretNumber = generateSecretNumber();
-        //TODO - change to random number
-        this.secretNumber = 1224;
+        this.secretNumber = generateSecretNumber();
         this.inputAnalyzer = new PlayerTurnAnalyzer(secretNumber);
         this.gameLogDirName = gameLogDirName;
     }
@@ -56,7 +53,7 @@ public class CurrentGameManager {
 
     private void endGame(int stepsCount, List<PlayerTurnResult> currentGameResults) {
         isRunning = false;
-        gameLogFileName = GameLogger.saveToLog(currentGameResults, stepsCount, gameLogDirName);
+        GameLogger.saveToLog(currentGameResults, stepsCount, gameLogDirName);
         printFinalFlag();
     }
 
