@@ -17,6 +17,10 @@ public class PlayerTurnResult implements Serializable {
         return nBulls;
     }
 
+    public int getCows() {
+        return nCows;
+    }
+
     @Override
     public String toString() {
         return String.format("%s (%d cows, %d bulls)", playersInput, nCows, nBulls);

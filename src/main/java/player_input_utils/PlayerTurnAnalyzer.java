@@ -34,7 +34,6 @@ public class PlayerTurnAnalyzer {
         int[] index = {0};
         playersInput.chars()
                 .mapToObj(i -> (char) i)
-                .filter(Character::isDigit)
                 .map(Character::getNumericValue)
                 .forEach(i -> {
                     if (numbersAndIndexesMap.get(i) != null) {
