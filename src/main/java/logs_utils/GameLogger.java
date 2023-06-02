@@ -28,15 +28,18 @@ public class GameLogger {
     }
 
     @SuppressWarnings("unchecked")
-    public static void readFromLog(String filename, String dirName) {
-        File logFile = new File(dirName, filename);
-        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(logFile)))) {
-            System.out.println("LOG: " + filename);
+    public static void readFromLog() {
+        String dirName = readLogsDirectoryName();
+        File logDir = new File(dirName);
+        File logFile;
+        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(
+                logFile = logDir.listFiles()[logDir.listFiles().length - 1])))) {
+            System.out.println("LOG: " + logFile.getName());
             List<PlayerTurnResult> log = (List<PlayerTurnResult>) in.readObject();
             log.forEach(System.out::println);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Unable to read from log");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("No logs were found");
         }
     }

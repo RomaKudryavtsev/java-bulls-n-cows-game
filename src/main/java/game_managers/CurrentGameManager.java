@@ -13,10 +13,10 @@ public class CurrentGameManager {
     private static final int SECRET_NUMBER_DIGITS = 4;
     private static final int MAX_SECRET_NUMBER = 9999;
     private final int secretNumber;
-    private final String gameLogDirName;
     private final PlayerTurnAnalyzer inputAnalyzer;
     private boolean isRunning;
     private String gameLogFileName;
+    private String gameLogDirName;
 
 
     public CurrentGameManager(String gameLogDirName) {
@@ -46,12 +46,12 @@ public class CurrentGameManager {
         }
     }
 
-    public String getGameLogFileName() {
-        return gameLogFileName;
-    }
-
     public String getGameLogDirName() {
         return gameLogDirName;
+    }
+
+    public void setGameLogDirName(String gameLogDirName) {
+        this.gameLogDirName = gameLogDirName;
     }
 
     private void endGame(int stepsCount, List<PlayerTurnResult> currentGameResults) {

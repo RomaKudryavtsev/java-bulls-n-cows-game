@@ -31,13 +31,14 @@ public class GameCycleManager {
                 break;
             case 2:
                 System.out.println("\n\t\t>>>>LAST GAME LOG<<<<");
-                GameLogger.readFromLog(gameManager.getGameLogFileName(), gameManager.getGameLogDirName());
+                GameLogger.readFromLog();
                 break;
             case 3:
                 System.out.println("\n\t\t>>>>TYPE NEW DIRECTORY NAMES FOR LOGS<<<<");
                 String newLogsDir = PlayerInputReader.readPlayerLogDirName();
                 GameLogger.writeLogsDirectoryName(newLogsDir);
                 LogsCopier.copyPrevLogsToDir(gameManager.getGameLogDirName(), newLogsDir);
+                gameManager.setGameLogDirName(newLogsDir);
                 break;
             case 4:
                 getRules();
