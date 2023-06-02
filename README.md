@@ -1,4 +1,15 @@
 # java-bulls-n-cows-game
+
+         (__) 
+         /oo| 
+        (_\"_)*+++++++++*" 
+         /   --+++++++ 
+         #!  +    ++++++ 
+           \\ _    +++++
+           |\\_\\   +   +
+           |  \\ \\      
+        (__/  (__/
+
 Bulls 'N Cows CLI Game is a command-line interface version of the popular game "Bulls and Cows." The game itself and its rules are accessible within the application.
 ## Features
 
