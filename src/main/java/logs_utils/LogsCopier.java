@@ -10,8 +10,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LogsCopier {
-
-    @SuppressWarnings("unchecked")
     public static void copyPrevLogsToDir(String srcDirName, String dstDirName) {
         File srcLogDir = new File(srcDirName);
         File dstLogDir = new File(dstDirName);
@@ -42,6 +40,7 @@ public class LogsCopier {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static void copyContent(File srcLog, File newLog) {
         try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(srcLog)));
              ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(newLog)))) {
