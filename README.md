@@ -22,7 +22,7 @@ Bulls 'N Cows CLI Game is a command-line interface version of the popular game "
 
 The game logs all your plays, including the guesses and the corresponding bulls and cows, using ObjectStreams. This allows you to review your gameplay later and keep track of your progress.
 
-You have the flexibility to change the directory for storing log files according to your preference. This ensures that you can easily organize and manage your gameplay records.
+The game saves logs with a specific format (date, time, and moves) in a default directory called "logs." If the player specifies a different directory name, files from the old directory are copied to the new one and the old directory is deleted. The name of the log directory is stored in a separate file called "dir_logs_name.txt." This allows the application to remember the last location of the logs. By default, logs are saved in the "logs" directory.
 
 ## Getting Started
 
