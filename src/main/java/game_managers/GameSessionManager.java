@@ -8,10 +8,11 @@ import player_input_utils.PlayerTurnAnalyzer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GameSessionManager {
     private static final int SECRET_NUMBER_DIGITS = 4;
-    private static final int MAX_SECRET_NUMBER = 9999;
     private final int secretNumber;
     private final PlayerTurnAnalyzer inputAnalyzer;
     private boolean isRunning;
@@ -59,7 +60,11 @@ public class GameSessionManager {
 
     private int generateSecretNumber() {
         Random random = new Random();
-        return random.nextInt(MAX_SECRET_NUMBER);
+        return IntStream.range(0, 10)
+                .map(i -> random.nextInt(10))
+                .distinct()
+                .limit(4)
+                .reduce(0, (a, b) -> a * 10 + b);
     }
 
     private void printFinalFlag() {
