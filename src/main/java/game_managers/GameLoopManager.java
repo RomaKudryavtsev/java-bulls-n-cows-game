@@ -6,15 +6,15 @@ import player_input_utils.PlayerInputReader;
 
 import java.io.*;
 
-public class GameCycleManager {
+public class GameLoopManager {
     private boolean isRunning;
-    private final CurrentGameManager gameManager;
+    private final GameSessionManager gameManager;
 
-    public GameCycleManager() {
-        gameManager = new CurrentGameManager(GameLogger.readLogsDirectoryName());
+    public GameLoopManager() {
+        gameManager = new GameSessionManager(GameLogger.readLogsDirectoryName());
     }
 
-    public void runCycle() {
+    public void runLoop() {
         isRunning = true;
         while (isRunning) {
             printMenu();

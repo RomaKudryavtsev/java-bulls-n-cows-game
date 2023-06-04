@@ -10,7 +10,7 @@ import java.util.List;
 public class GameLogger {
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_hh_mm_");
 
-    public static String saveToLog(List<PlayerTurnResult> currentGameResults, int stepsCount, String logDirName) {
+    public static void saveToLog(List<PlayerTurnResult> currentGameResults, int stepsCount, String logDirName) {
         String logFileName = String.format("%s%d.data", LocalDateTime.now().format(DATE_TIME_FORMAT), stepsCount);
         File logDir = new File(logDirName);
         if (!logDir.exists()) {
@@ -21,7 +21,6 @@ public class GameLogger {
         File logFile = new File(logDirName, logFileName);
         try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(logFile)))) {
             out.writeObject(currentGameResults);
-            return logFile.getName();
         } catch (IOException e) {
             throw new RuntimeException("Unable to write log");
         }

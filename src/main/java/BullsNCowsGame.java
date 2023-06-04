@@ -1,7 +1,7 @@
-import game_managers.GameCycleManager;
+import game_managers.GameLoopManager;
 
 public class BullsNCowsGame {
     public static void main(String[] args) {
-        new GameCycleManager().runCycle();
+        new GameLoopManager().runLoop();
     }
 }

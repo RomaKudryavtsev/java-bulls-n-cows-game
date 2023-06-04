@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CurrentGameManager {
+public class GameSessionManager {
     private static final int SECRET_NUMBER_DIGITS = 4;
     private static final int MAX_SECRET_NUMBER = 9999;
     private final int secretNumber;
@@ -18,7 +18,7 @@ public class CurrentGameManager {
     private String gameLogDirName;
 
 
-    public CurrentGameManager(String gameLogDirName) {
+    public GameSessionManager(String gameLogDirName) {
         this.secretNumber = generateSecretNumber();
         this.inputAnalyzer = new PlayerTurnAnalyzer(secretNumber);
         this.gameLogDirName = gameLogDirName;
